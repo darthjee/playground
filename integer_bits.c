@@ -50,14 +50,15 @@ char interact(int *number) {
 
 void show_table(int number) {
   int i;
+  /* threat the 4 bytes integer as an array of 1 byte char with 4 positions */
   char *array = (char *) &number;
 
   /* headers include the number and table headers */
   printf("Number: (signed) %+d\t(unsigned) %u\n", number, (unsigned int) number);
   printf("index\tsigned\tunsigned\tbit\t\tinverted\n");
 
-  /* break down of each byte */
-  for (i = 0; i < 4; i++) {
+  /* break down of each byte within the 4 bytes number */
+  for (i = 0; i < sizeof(int); i++) {
     show_byte(i, array[i]);
   }
 }
