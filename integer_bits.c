@@ -11,6 +11,7 @@ void show_table(int number);
 char *bit_string(unsigned char value);
 char *reverse_string(char *value);
 char interact(int *number);
+void change_char(int *number);
 
 int main() {
   char opt;
@@ -28,7 +29,7 @@ char interact(int *number) {
   opt = read_option("qQcCnN", "Choose an option: [Q]uit, change a [C]har, change the [N]umber\n");
 
   if (in(opt, "cC")) {
-    printf("change char\n");
+    change_char(number);
   } else if (in(opt, "nN")) {
     printf("change number\n");
   }
@@ -53,6 +54,29 @@ void show_table(int number) {
 
     printf("[%d]\t%+04d\t%03d\t\t%s\t%s\n", i, sig, not_sig, bits, reverse_bits);
   }
+}
+
+void change_char(int *number) {
+  int index;
+  unsigned int value;
+  char *array;
+
+  array = (char *) number;
+
+  do {
+    show_table(*number);
+    printf("Which index do you wanna change?: ");
+    scanf("%d", &index);
+  } while (index >= sizeof(int) || index < 0);
+
+  do {
+    show_table(*number);
+    value = (unsigned int) array[index];
+    printf("Which should be the new value for char[%d] = %d ?\n", index, value);
+    scanf("%d", &value);
+  } while(value > 255);
+
+  array[index] = (unsigned char) value;
 }
 
 char *reverse_string(char *string) {
