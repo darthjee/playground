@@ -12,6 +12,7 @@ char *bit_string(unsigned char value);
 char *reverse_string(char *value);
 char interact(int *number);
 void change_char(int *number);
+void change_number(int *number);
 
 int main() {
   char opt;
@@ -31,7 +32,7 @@ char interact(int *number) {
   if (in(opt, "cC")) {
     change_char(number);
   } else if (in(opt, "nN")) {
-    printf("change number\n");
+    change_number(number);
   }
 
   return opt;
@@ -77,6 +78,14 @@ void change_char(int *number) {
   } while(value > 255);
 
   array[index] = (unsigned char) value;
+}
+
+void change_number(int *number) {
+  unsigned int value;
+
+  show_table(*number);
+  printf("Which should be the new value for the number?\n");
+  scanf("%d", number);
 }
 
 char *reverse_string(char *string) {
