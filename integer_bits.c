@@ -47,20 +47,30 @@ char interact(int *number) {
 void show_table(int number) {
   int i;
   char *array = (char *) &number;
-  char *bits, *reverse_bits;
-  char sig;
-  unsigned char not_sig;
 
+  /* headers include the number and table headers */
   printf("Number: (signed) %+d\t(unsigned) %u\n", number, (unsigned int) number);
   printf("index\tsigned\tunsigned\tbit\t\tinverted\n");
 
+  /* break down of each byte */
   for (i = 0; i < 4; i++) {
-    sig = not_sig = array[i];
-    bits = bit_string(not_sig);
-    reverse_bits = reverse_string(bits);
-
-    printf("[%d]\t%+04d\t%03d\t\t%s\t%s\n", i, sig, not_sig, bits, reverse_bits);
+    show_byte(i, array[i]);
   }
+}
+
+void show_byte(int index, char byte) {
+  unsigned char unsigned_byte;
+  char *bits, *reverse_bits;
+
+  unsigned_byte = (unsigned char) byte;
+  bits = bit_string(unsigned_byte);
+  reverse_bits = reverse_string(bits);
+
+  printf(
+      "[%d]\t%+04d\t%03d\t\t%s\t%s\n",
+      index, byte, unsigned_byte,
+      bits, reverse_bits
+      );
 }
 
 void change_char(int *number) {
