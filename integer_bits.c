@@ -10,15 +10,30 @@ char read_option(char *options, char* text);
 void show_table(int number);
 char *bit_string(unsigned char value);
 char *reverse_string(char *value);
+char interact(int *number);
 
 int main() {
-  char exit;
+  char opt;
   int number;
 
   do {
     show_table(number);
-    exit = read_option("ynYN", "\nDo you wanna quit? [y/n]");
-  } while(! in(exit, "yY"));
+    opt = interact(&number);
+  } while(! in(opt, "qQ"));
+}
+
+char interact(int *number) {
+  char opt;
+
+  opt = read_option("qQcCnN", "Choose an option: [Q]uit, change a [C]har, change the [N]umber\n");
+
+  if (in(opt, "cC")) {
+    printf("change char\n");
+  } else if (in(opt, "nN")) {
+    printf("change number\n");
+  }
+
+  return opt;
 }
 
 void show_table(int number) {
