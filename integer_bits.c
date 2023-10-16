@@ -1,3 +1,7 @@
+/* DISCLAIMER */
+/* I have been doing ruby for too
+ * long and forgot to free the memory after mallocs XD */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -63,7 +67,11 @@ void show_byte(int index, char byte) {
   char *bits, *reverse_bits;
 
   unsigned_byte = (unsigned char) byte;
+
+  /* string of bits in computacional order */
   bits = bit_string(unsigned_byte);
+
+  /* string of bits in regular matematical order */
   reverse_bits = reverse_string(bits);
 
   printf(
@@ -73,6 +81,7 @@ void show_byte(int index, char byte) {
       );
 }
 
+/* interact to change a char / byte */
 void change_char(int *number) {
   int index;
   unsigned int value;
@@ -80,22 +89,26 @@ void change_char(int *number) {
 
   array = (char *) number;
 
+  /* index selection */
   do {
     show_table(*number);
     printf("Which index do you wanna change?: ");
     scanf("%d", &index);
   } while (index >= sizeof(int) || index < 0);
 
+  /* value selection */
   do {
     show_table(*number);
     value = (unsigned int) array[index];
-    printf("Which should be the new value for char[%d] = %d ?\n", index, value);
+    printf("Which should be the new value for char[%d] = %d ? (0 - 255)\n", index, value);
     scanf("%d", &value);
   } while(value > 255);
 
+  /* assign to correct memory position whitin the integer */
   array[index] = (unsigned char) value;
 }
 
+/* interact to change the number as a whole */
 void change_number(int *number) {
   unsigned int value;
 
@@ -104,6 +117,7 @@ void change_number(int *number) {
   scanf("%d", number);
 }
 
+/* reverse a string */
 char *reverse_string(char *string) {
   int len, i;
   char *reverse;
@@ -119,6 +133,7 @@ char *reverse_string(char *string) {
   return reverse;
 }
 
+/* convert a number into a string of bits */
 char *bit_string(unsigned char value) {
   char *string;
   char i;
@@ -134,11 +149,14 @@ char *bit_string(unsigned char value) {
   return string;
 }
 
+/* read an option from the input and repeat until one of
+ * the given options are accepted */
 char read_option(char *options, char* text) {
   char opt;
 
   do {
     printf("%s", text);
+    /* swallow <ENTER> to avoid double question */
     do {
       scanf("%c", &opt);
     } while(opt == '\n');
@@ -147,6 +165,7 @@ char read_option(char *options, char* text) {
   return opt;
 }
 
+/* Checks is a character exists within a given string */
 char in(char opt, char *options) {
   int i, size;
 
