@@ -123,7 +123,9 @@ char read_option(char *options, char* text) {
 
   do {
     printf("%s", text);
-    scanf("%c", &opt);
+    do {
+      scanf("%c", &opt);
+    } while(opt == '\n');
   } while (! in(opt, options));
 
   return opt;
