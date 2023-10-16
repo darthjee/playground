@@ -45,7 +45,7 @@ void show_table(int number) {
   char sig;
   unsigned char not_sig;
 
-  printf("Number: %d\n", number);
+  printf("Number: (signed) %+d\t(unsigned) %u\n", number, (unsigned int) number);
   printf("index\tsigned\tunsigned\tbit\t\tinverted\n");
 
   for (i = 0; i < 4; i++) {
