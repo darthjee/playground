@@ -13,13 +13,17 @@ char *reverse_string(char *value);
 char interact(int *number);
 void change_char(int *number);
 void change_number(int *number);
+void show_byte(int index, char byte);
 
 int main() {
   char opt;
   int number;
 
   do {
+    /* show the table on every interaction*/
     show_table(number);
+
+    /* interact with the user to either change values or quit*/
     opt = interact(&number);
   } while(! in(opt, "qQ"));
 }
@@ -27,6 +31,7 @@ int main() {
 char interact(int *number) {
   char opt;
 
+  /* options are quit, change a char or change the number as a whole */
   opt = read_option("qQcCnN", "Choose an option: [Q]uit, change a [C]har, change the [N]umber\n");
 
   if (in(opt, "cC")) {
@@ -34,6 +39,7 @@ char interact(int *number) {
   } else if (in(opt, "nN")) {
     change_number(number);
   }
+  /* when Q is chosen, it is time to quit */
 
   return opt;
 }
